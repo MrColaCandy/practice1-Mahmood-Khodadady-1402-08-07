@@ -1,25 +1,32 @@
-import logo from './logo.svg';
-import './App.css';
-
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+import React from "react";
+import users from "./data/users.json";
+import "./App.css";
+const App = () => {
+  const renderUser = (user) => {
+    return (
+      <div key={user.id} className="card">
+        <div className="card-header">
+          <img src={user.avatar} alt="avatar" />
+          <h3
+            className={user.gender == "Female" ? "red" : "blue"}
+          >{`${user.first_name} ${user.last_name}`}</h3>
+        </div>
+        <div className="card-body">
+          <h4>{user.gender}</h4>
+        </div>
+      </div>
+    );
+  };
+  const renderUsers = (users = []) => {
+    if (users.length === 0) {
+      return <div></div>;
+    } else {
+      return users.map((user) => {
+        return renderUser(user);
+      });
+    }
+  };
+  return <div className="users-container">{renderUsers(users)}</div>;
+};
 
 export default App;
